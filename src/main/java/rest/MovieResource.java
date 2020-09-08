@@ -31,38 +31,55 @@ public class MovieResource {
         return "{\"msg\":\"Hello World\"}";
     }
 
-   
-    @Path("count")
+    @Path("getMovieList")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String countAllMovies() {
-        long count = FACADE.getMovieCount();
-        
-        return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
+    public String getMovieList() {
+
+        List<Movie> movies = FACADE.getAllMovies();
+
+        List<MovieDTO> movieDTO = new ArrayList();
+
+        for (Movie movie : movies) {
+
+            movieDTO.add(new MovieDTO(movie));
+
+        }
+
+        return GSON.toJson(movieDTO);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    @Path("getMovieCount")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getMovieCount() {
+
+        long count = FACADE.getMovieCount();
+
+        return GSON.toJson(count);
+
+    }
+
+    @Path("title/{title}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getEmployeeById(@PathParam("title") String title) {
+
+        MovieDTO movieDTO = new MovieDTO(FACADE.getMovieFromTitle(title));
+
+        return GSON.toJson(movieDTO);
+
+    }
+
+    @Path("year/{year}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String get(@PathParam("year") int year) {
+
+        MovieDTO movieDTO = new MovieDTO(FACADE.getMovieFromYear(year));
+
+        return GSON.toJson(movieDTO);
+
+    }
 
 }
