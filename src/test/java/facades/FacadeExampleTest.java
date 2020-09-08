@@ -1,9 +1,13 @@
 package facades;
 
+import entities.Movie;
 import utils.EMF_Creator;
-import entities.RenameMe;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,15 +20,15 @@ import org.junit.jupiter.api.Test;
 public class FacadeExampleTest {
 
     private static EntityManagerFactory emf;
-    private static FacadeExample facade;
+    private static MovieFacade facade;
 
     public FacadeExampleTest() {
     }
 
     @BeforeAll
     public static void setUpClass() {
-       emf = EMF_Creator.createEntityManagerFactoryForTest();
-       facade = FacadeExample.getFacadeExample(emf);
+        emf = EMF_Creator.createEntityManagerFactoryForTest();
+        facade = MovieFacade.getFacadeExample(emf);
     }
 
     @AfterAll
@@ -39,9 +43,12 @@ public class FacadeExampleTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(new RenameMe("Some txt", "More text"));
-            em.persist(new RenameMe("aaa", "bbb"));
+
+            em.createNativeQuery("DELETE FROM MOVIE").executeUpdate();
+
+            //em.createNamedQuery("startcode_test.deleteAllRows").executeUpdate();
+            em.persist(new Movie("Test1", "Test1", "Test1", 1990));
+            em.persist(new Movie("Test2", "Test2", "Test2", 2000));
 
             em.getTransaction().commit();
         } finally {
@@ -56,8 +63,39 @@ public class FacadeExampleTest {
 
     // TODO: Delete or change this method 
     @Test
-    public void testAFacadeMethod() {
-        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+    public void testGetAllMovies() {
+
+        List<Movie> movies = facade.getAllMovies();
+
+        assertThat(movies, hasSize(2));
+
+    }
+
+    @Test
+    public void testGetMovieFromYear() {
+
+        Movie movie = facade.getMovieFromYear(1990);
+
+        assertEquals("Test1", movie.getTitle());
+
+    }
+
+    @Test
+    public void testGetMovieFromTitle() {
+
+        Movie movie = facade.getMovieFromTitle("Test1");
+
+        assertEquals("Test1", movie.getTitle());
+
+    }
+
+    @Test
+    public void testGetMovieCount() {
+
+        long count = facade.getMovieCount();
+
+        assertEquals(2, count);
+
     }
 
 }
