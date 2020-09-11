@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div>TODO write content</div>
+
+
+        <table class="table" id="myTable">
+            <thead>
+                <tr>
+
+                    <th scope="col">Id</th>
+                    <th scope="col">year</th>
+                    <th scope="col">Make</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody id="myBody">
+
+
+
+            </tbody>
+        </table>
+
+        <form onsubmit="return sortByPrice()">
+            <p>Price</p>
+            <input type="text" id="price" value="Indtast pris">
+            <input type="submit" value="Submit">
+        </form>
+
+
+
+        <script>
+
+            var cars = [
+                {id: 1, year: 1997, make: 'Ford', model: 'E350', price: 3000},
+                {id: 2, year: 1999, make: 'Chevy', model: 'Venture', price: 4900},
+                {id: 3, year: 2000, make: 'Chevy', model: 'Venture', price: 5000},
+                {id: 4, year: 1996, make: 'Jeep', model: 'Grand Cherokee', price: 4799},
+                {id: 5, year: 2005, make: 'Volvo', model: 'V70', price: 44799}
+            ];
+
+
+
+
+
+
+
+            let htmlCars = cars.map(x =>
+                "<tr><td>" + x.id + "</td>\n\
+                <td>" + x.year + "</td>\n\
+                <td>" + x.make + "</td>\n\
+                <td>" + x.model + "</td>\n\
+                <td>" + x.price + "</td></tr>")
+
+
+
+
+            document.getElementById("myBody").innerHTML = htmlCars
+
+
+            function sortCars(car) {
+
+                let price = document.getElementById("price").value
+
+                return car => car.price < price;
+
+            }
+
+
+
+            function sortByPrice() {
+
+                let filteredCars = cars.filter(sortCars())
+
+                let filteredHtmlCars = filteredCars.map(x =>
+                    "<tr><td>" + x.id + "</td>\n\
+                <td>" + x.year + "</td>\n\
+                <td>" + x.make + "</td>\n\
+                <td>" + x.model + "</td>\n\
+                <td>" + x.price + "</td></tr>")
+
+
+                document.getElementById("myBody").innerHTML = filteredHtmlCars
+                event.preventDefault()
+
+
+            }
+
+
+
+
+
+
+
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    </body>
+</html>

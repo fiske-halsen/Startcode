@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <div class="myClass">
+            <h1 id="myh1">Alle navne </h1>
+
+
+            <form onsubmit="return addName()">
+                <p>Please insert the items</p>
+                <input type="text" id="name">
+                <input type="submit" value="Submit">
+            </form>
+            <br><br>
+
+            <div>
+                <button onclick="removeFirst()">Remove first</button>
+                <button onclick="removeLast()">Remove last</button>
+            </div>
+
+        </div>
+
+        <script>
+
+
+            var myNames = ["Lars", "Per", "Mette"]
+
+            var htmlArray = myNames.map(function (n) {
+
+                return "<li>" + n + "</li>"
+
+            })
+
+
+            htmlArray.unshift("<ul>")
+            htmlArray.push("</ul>")
+
+            var stringArray = htmlArray.join(" ")
+            var x = document.getElementById("myh1")
+            x.insertAdjacentHTML("afterend", stringArray)
+
+            var ul = document.querySelector('.myClass > ul');
+            ul.id = 'someId'
+
+
+            function addName() {
+
+                let nameValue = document.getElementById("name").value;
+                myNames.push(nameValue)
+                console.log(myNames.length)
+                let stringNewName = "<li>" + nameValue + "</li>"
+
+                let x = document.getElementById("someId")
+
+                x.insertAdjacentHTML("beforeend", stringNewName)
+
+
+                return false;
+
+            }
+
+
+            function removeFirst() {
+
+                let list = document.getElementById("someId");   // Get the <ul> element with id="myList"
+                list.removeChild(list.firstElementChild)
+
+
+            }
+
+            function removeLast() {
+
+                let list = document.getElementById("someId");   // Get the <ul> element with id="myList"
+                list.removeChild(list.lastElementChild)
+
+            }
+
+
+
+
+        </script>
+
+
+
+    </body>
+</html>

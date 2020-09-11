@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+
+        <div id="1"> Lars</div>
+        <div id="2"> Lone</div>
+        <div id="3"> Hehe</div>
+
+        <button id="myBtn">Click me</button>
+
+        <script>
+            var x = document.getElementsByTagName("div")
+            var i = 0;
+            for (i = 0; i < x.length; i++) {
+                x[i].style.backgroundColor = "blue";
+            }
+
+
+
+            document.getElementById("myBtn").addEventListener("click", function () {
+
+                document.getElementById(1).style.backgroundColor = "black"
+                document.getElementById(2).style.backgroundColor = "purple"
+                document.getElementById(3).style.backgroundColor = "green"
+
+
+            });
+
+
+        </script>
+
+
+    </body>
+</html>
