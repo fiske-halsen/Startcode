@@ -103,6 +103,7 @@ public class AllEndPointsTest {
     }
 
    /* @Test
+     Testen er korrekt, men virker ikke af en eller anden grund
     public void testCount() throws Exception {
         given()
                 .contentType("application/json")
@@ -133,7 +134,10 @@ public class AllEndPointsTest {
                 .body("title", equalTo(m2.getTitle()));
     }
 
-    /*@Test
+    /*
+    
+    Testen er korrekt, men virker ikke af en eller anden grund
+    @Test
     public void testSpecificYear() throws Exception {
         given()
                 .contentType("application/json")
